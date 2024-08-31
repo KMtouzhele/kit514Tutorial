@@ -1,0 +1,90 @@
+/* Reset some default browser styles */
+body,
+h1,
+label,
+input,
+select {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic styling for the body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    padding: 20px;
+}
+
+/* Styling for the header */
+h1 {
+    color: #444;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Styling for the form container */
+form {
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for form labels */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* Styling for form inputs, selects, and password fields */
+input[type="text"],
+input[type="password"],
+select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Styling for form buttons */
+input[type="submit"],
+input[type="button"] {
+    background-color: #5cb85c;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+/* Add hover effect for the buttons */
+input[type="submit"]:hover,
+input[type="button"]:hover {
+    background-color: #4cae4c;
+}
+
+/* Additional styling for buttons to differentiate them */
+input[type="button"] {
+    background-color: #0275d8;
+}
+
+input[type="button"]:hover {
+    background-color: #025aa5;
+}
+
+.error-message {
+    color: red;
+    background-color: #ffe6e6;
+    border: 1px solid red;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
