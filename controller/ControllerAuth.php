@@ -4,16 +4,19 @@ include_once("view/ViewHome.php");
 include_once("view/ViewLogin.php");
 include_once("model/ModelRegistration.php");
 include_once("model/User.php");
+include_once("model/ModelLog.php");
 
 class ControllerAuth
 {
     private $modelRegistration;
+    private $modelLog;
     private $viewRegistration;
     private $viewHome;
     private $viewLogin;
     public function __construct()
     {
         $this->modelRegistration = new ModelRegistration();
+        $this->modelLog = new ModelLog();
         $this->viewRegistration = new ViewRegistration();
         $this->viewHome = new ViewHome();
         $this->viewLogin = new ViewLogin();
@@ -57,6 +60,7 @@ class ControllerAuth
         } else {
             $_SESSION['id'] = $userId;
             $_SESSION['logged_in'] = true;
+            $this->modelLog->addNewLog($userId, "register");
             header("Location: /?page=home&user_id=" . urlencode($userId));
         }
     }
@@ -68,27 +72,29 @@ class ControllerAuth
         $credential = $this->modelRegistration->getCredentialByUsername($username);
         $salt = $credential['salt'];
         $storedPassword = $credential['password'];
-        $id = $credential['id'];
+        $userId = $credential['id'];
         if ($salt === "") {
-            $this->showLogin();
+            $this->showLogin("No matching user found.");
             return;
         } else {
             $hashedPassword = sha1($salt . $password);
         }
         if ($hashedPassword !== $storedPassword) {
-            $this->showLogin();
+            $this->showLogin("Incorrect password.");
+            $this->modelLog->addNewLog($userId, "login failed");
             return;
         } else {
-            $_SESSION['id'] = $id;
+            $_SESSION['id'] = $userId;
             $_SESSION['logged_in'] = true;
-            header('Location: /?page=home&user_id=' . urlencode($id));
+            $this->modelLog->addNewLog($userId, "login");
+            header('Location: /?page=home&user_id=' . urlencode($userId));
 
         }
     }
 
-    public function showLogin()
+    public function showLogin($error = null)
     {
-        $this->viewLogin->output();
+        $this->viewLogin->output($error);
     }
 
     private function saltPassword($password)

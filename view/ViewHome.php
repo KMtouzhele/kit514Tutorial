@@ -22,7 +22,10 @@ class ViewHome
 
         <body>
             <h1>Welcome, <?php echo htmlspecialchars($user->username); ?>!</h1>
-            <p>Description: <?php echo htmlspecialchars($user->description); ?></p>
+
+            <div class="container">
+                <p>Description: <?php echo htmlspecialchars($user->description); ?></p>
+            </div>
 
             <form method="POST" action="">
                 <?php foreach ($buttons as $button): ?>

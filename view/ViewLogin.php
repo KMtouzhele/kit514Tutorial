@@ -1,7 +1,7 @@
 <?php
 class ViewLogin
 {
-    public function output()
+    public function output($error = null)
     {
         ?>
         <html>
@@ -15,6 +15,11 @@ class ViewLogin
 
         <body>
             <h1>Login</h1>
+            <?php
+            if ($error !== null) {
+                echo "<div class='error-message'>" . htmlspecialchars($error) . "</div>";
+            }
+            ?>
             <form method="POST" action="/?page=auth">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username"></input>

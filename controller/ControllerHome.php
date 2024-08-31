@@ -39,4 +39,16 @@ class ControllerHome
         }
     }
 
+    public function handleLogout()
+    {
+        session_destroy();
+        header("Location: /?page=login");
+        exit();
+    }
+
+    public function showPermission()
+    {
+        echo "You have permission to access this page";
+    }
+
 }

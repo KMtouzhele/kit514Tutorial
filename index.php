@@ -25,6 +25,18 @@ switch ($page) {
             $controllerHome->showUserHome($userId);
         } elseif ($method == 'GET') {
             $controllerAuth->showRegistration();
+        } elseif ($method == 'POST' && isset($_POST['action'])) {
+            $action = $_POST['action'];
+            if ($action === 'Logout') {
+                $controllerHome->handleLogout();
+            } elseif ($action === 'Permission') {
+                //TODO: implement permission logic
+            } elseif ($action === 'AccessLog') {
+                //TODO: implement access log logic
+                echo "You have access log to this page";
+            } else {
+                echo "Invalid action";
+            }
         } else {
             header("HTTP/1.0 405 Method Not Allowed");
             echo "Method not allowed for home page";
@@ -43,6 +55,8 @@ switch ($page) {
         break;
     case ('login'):
         if ($method == 'POST') {
+            $controllerAuth->showLogin();
+        } elseif ($method == 'GET') {
             $controllerAuth->showLogin();
         } else {
             header("HTTP/1.0 405 Method Not Allowed");
