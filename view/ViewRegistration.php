@@ -23,7 +23,7 @@ class ViewRegistration
                 echo "<div class='error-message'>" . htmlspecialchars($error) . "</div>";
             }
             ?>
-            <form method="POST" action="/?page=register">
+            <form method="POST" action="index.php?action=register">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required>
 
@@ -48,7 +48,7 @@ class ViewRegistration
                 <input type="text" id="description" name="description" required>
                 <input type="submit" action="action" value="Register">
             </form>
-            <form method="POST" action="/?page=login">
+            <form method="POST" action="index.php?action=tologin">
                 <input type="submit" name="action" value="Login">
             </form>
         </body>

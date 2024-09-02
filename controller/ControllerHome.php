@@ -3,24 +3,32 @@
 include_once("view/ViewHome.php");
 include_once("view/ViewLogin.php");
 include_once("view/ViewRegistration.php");
+include_once("view/ViewLog.php");
 include_once("model/ModelRegistration.php");
+include_once("model/ModelLog.php");
+include_once("model/ModelPermission.php");
 
 class ControllerHome
 {
     private $viewHome;
     private $modelRegistration;
+    private $modelLog;
+    private $modelPermission;
     private $viewRegistration;
+    private $viewLog;
 
     public function __construct()
     {
         $this->viewHome = new ViewHome();
         $this->modelRegistration = new ModelRegistration();
+        $this->modelLog = new ModelLog();
+        $this->modelPermission = new ModelPermission();
         $this->viewRegistration = new ViewRegistration();
+        $this->viewLog = new ViewLog();
     }
 
     public function showUserHome($userId)
     {
-        echo "this is home page";
         $user = $this->modelRegistration->getUserById($userId);
         $buttons = $this->assignButtonsOnRole($user->roleId);
         $this->viewHome->output($user, $buttons);
@@ -46,9 +54,28 @@ class ControllerHome
         exit();
     }
 
-    public function showPermission()
+    public function handlePermission($user_id)
     {
-        echo "You have permission to access this page";
+        $priv = $this->modelPermission->hasPermissionPrivileges($user_id);
+        if ($priv) {
+            header("Location: ?action=permission");
+            exit();
+        } else {
+            header("Location: ?action=home");
+            exit();
+        }
+    }
+
+    public function handleAccessLog($user_id)
+    {
+        $priv = $this->modelLog->hasLogPrivileges($user_id);
+        if ($priv) {
+            header("Location: index.php?action=accesslog");
+            exit();
+        } else {
+            header("Location: index.php?action=home");
+            exit();
+        }
     }
 
 }

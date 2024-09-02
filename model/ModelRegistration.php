@@ -141,7 +141,12 @@ class ModelRegistration
         $stmt->close();
 
         if ($result->num_rows === 0) {
-            return [];
+            return [
+                'id' => "",
+                'username' => "",
+                'salt' => "",
+                'password' => ""
+            ];
         }
         $row = $result->fetch_assoc();
         return [

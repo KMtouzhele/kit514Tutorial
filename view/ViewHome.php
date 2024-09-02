@@ -2,22 +2,15 @@
 class ViewHome
 {
     private $user;
+
     public function output($user, $buttons)
     {
-        if (
-            !isset($_SESSION['logged_in'])
-            || $_SESSION['logged_in'] !== true
-            || $_SESSION['id'] !== $user->id
-        ) {
-            header("Location: /?page=register");
-            exit();
-        }
         ?>
         <html>
 
         <head>
             <title>Home</title>
-            <link rel="stylesheet" type="text/css" href="css/style.css">
+            <link rel="stylesheet" type="text/css" href="/css/style.css">
         </head>
 
         <body>
@@ -26,18 +19,18 @@ class ViewHome
             <div class="container">
                 <p>Description: <?php echo htmlspecialchars($user->description); ?></p>
             </div>
-
-            <form method="POST" action="">
-                <?php foreach ($buttons as $button): ?>
-                    <input type="submit" name="action" value="<?php echo htmlspecialchars($button); ?>">
-                <?php endforeach; ?>
-            </form>
+            <?php foreach ($buttons as $button):
+                $subpage = urlencode(strtolower(htmlspecialchars($button)));
+                $actionUrl = "?action=to{$subpage}";
+                ?>
+                <form method="POST" action="<?php echo htmlspecialchars($actionUrl); ?>">
+                    <input type="submit" value="<?php echo htmlspecialchars($button); ?>">
+                </form>
+            <?php endforeach; ?>
         </body>
 
         </html>
         <?php
     }
-
-
 }
 ?>

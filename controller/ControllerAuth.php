@@ -29,6 +29,10 @@ class ControllerAuth
 
     public function handleRegistration()
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            return;
+        }
+
         $username = $_POST['username'];
         $password = $_POST['password'];
         $verifyPassword = $_POST['verify_password'];
@@ -59,14 +63,18 @@ class ControllerAuth
             $this->showRegistration("Username has been used. Please try another one.");
         } else {
             $_SESSION['id'] = $userId;
-            $_SESSION['logged_in'] = true;
+
             $this->modelLog->addNewLog($userId, "register");
-            header("Location: /?page=home&user_id=" . urlencode($userId));
+            header("Location: index.php?action=home");
+            exit();
         }
     }
 
     public function handleLogin()
     {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            return;
+        }
         $username = $_POST['username'];
         $password = $_POST['password'];
         $credential = $this->modelRegistration->getCredentialByUsername($username);
@@ -87,8 +95,8 @@ class ControllerAuth
             $_SESSION['id'] = $userId;
             $_SESSION['logged_in'] = true;
             $this->modelLog->addNewLog($userId, "login");
-            header('Location: /?page=home&user_id=' . urlencode($userId));
-
+            header('Location: /index.php?action=home');
+            exit();
         }
     }
 

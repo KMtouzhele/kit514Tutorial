@@ -20,12 +20,15 @@ class ViewLogin
                 echo "<div class='error-message'>" . htmlspecialchars($error) . "</div>";
             }
             ?>
-            <form method="POST" action="/?page=auth">
+            <form method="POST" action="index.php?action=login">
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username"></input>
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password"></input>
                 <input type="submit" value="Login">
+            </form>
+            <form method="POST" action="index.php?action=toregister">
+                <input type="submit" value="Register">
             </form>
         </body>
 
