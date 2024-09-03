@@ -29,12 +29,18 @@ class ViewPermission
                             <td><?php echo htmlspecialchars($permission->username); ?></td>
                             <td><?php echo htmlspecialchars($permission->role); ?></td>
                             <td>
-                                <form method="POST" action="?action=setadmin">
+                                <form method="POST" action="?action=setrole">
                                     <input type="hidden" name="user_id"
                                         value="<?php echo htmlspecialchars($permission->user_id); ?>">
-                                    <input type="submit" name="setrole" value="admin">
-                                    <input type="submit" name="setrole" value="moderator">
-                                    <input type="submit" name="setrole" value="basic">
+                                    <?php if ($permission->role_id != 0): ?>
+                                        <input type="submit" name="setrole" value="admin">
+                                    <?php endif; ?>
+                                    <?php if ($permission->role_id != 1): ?>
+                                        <input type="submit" name="setrole" value="basic">
+                                    <?php endif; ?>
+                                    <?php if ($permission->role_id != 2): ?>
+                                        <input type="submit" name="setrole" value="moderator">
+                                    <?php endif; ?>
                                 </form>
                             </td>
                         </tr>
